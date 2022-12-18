@@ -30,3 +30,4 @@ assets/gambar/*.png
 assets/gambar/*.jpeg
 assets/gambar/*.gif
 assets/gambar/*.jpg
+vendor/
