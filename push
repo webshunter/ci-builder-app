@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+// argument
+
+exec("git add . ");
+$date = date("y-m-d h:i:s");
+exec("git commit -m \"update $date \" ");
+exec("git push -u origin main");
+

@@ -1,0 +1,54 @@
+$arr[] = [ 
+    'table' => 'user', 
+    'data' => [ 
+        'id' => ai(), 
+        'nama' => char(255), 
+        'level' => char(255), 
+        'username' => char(255), 
+        'password' => char(255), 
+        'passwordview' => char(255), 
+        'created_at' => timestamp(), 
+        'updated_at' => timestampupdate(), 
+        'delete_set' => char(1),
+  
+    ], 
+    'form' => [ 
+        'id' => 'no', 
+        'nama' => 'text', 
+        'level' => 'text', 
+        'username' => 'text', 
+        'password' => 'text', 
+        'passwordview' => 'text', 
+        'created_at' => 'text', 
+        'updated_at' => 'text', 
+        'delete_set' => 'text', 
+    ], 
+    'name' => [ 
+        'no', 
+        'nama', 
+        'level', 
+        'username', 
+        'password', 
+        'passwordview', 
+        'created_at', 
+        'updated_at', 
+        'delete_set', 
+    ], 
+    "title" => [
+          "view" => "user",
+          "edit" => "Ubah user",
+          "new" => "Tambahkan user"
+      ],
+    'command' => 'php gugus template user --crud user',
+    'value' => [
+      [
+          "nama" => "Gugus Darmayanto",
+          "username" => "gugus",
+          "password" => md5(md5("feed$123$")),
+          "passwordview" => "feed$123$",
+          "delete_set" => "0",
+      ]
+    ]
+  ]; 
+   
+  

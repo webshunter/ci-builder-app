@@ -1,0 +1,37 @@
+$arr[] = [ 
+    'table' => 'status', 
+    'data' => [ 
+        'id' => ai(), 
+        'nama' => char(255),  
+        'created_at' => timestamp(), 
+        'updated_at' => timestampupdate(), 
+        'delete_set' => char(1, 0),
+  
+    ], 
+    'form' => [ 
+    ], 
+    'name' => [ 
+    ], 
+    "title" => [
+          "view" => "user",
+          "edit" => "Ubah user",
+          "new" => "Tambahkan user"
+      ],
+    'command' => 'php gugus template user --crud user',
+    'value' => [
+      [
+          "nama" => "proses",
+          "delete_set" => "0",
+      ],
+      [
+          "nama" => "pending",
+          "delete_set" => "0",
+      ],
+      [
+          "nama" => "selesai",
+          "delete_set" => "0",
+      ]
+    ]
+  ]; 
+   
+  

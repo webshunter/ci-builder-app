@@ -1,0 +1,97 @@
+#!/usr/bin/env php
+<?php
+// argument
+$argument = $argv;
+
+function ffread($dir = ""){
+    $filename = $dir;
+    $handle = fopen($filename, "r");
+    $contents = fread($handle, filesize($filename));
+    fclose($handle);
+    return $contents;
+
+}
+
+// var_dump($argument);
+// require_once 'application/config/database.php';
+
+// $getdb = $db['default'];
+
+if($argument[1] == "database"){
+
+    print("say hello");
+    require_once 'gugus_artisan/db_table_set.php';
+    print "database created";
+
+}
+
+if($argument[1] == "template"){
+    require_once "./gugus_artisan/database.php";
+    $db = new Database;
+    require_once "./gugus_artisan/templating/template.php";
+}
+
+
+function getArgument($argument = [])
+{
+    $createArr = [];
+    foreach($argument as $key => $value){
+        $cari = "--";
+        if (preg_match("/$cari/i", $value)) {
+            $set = str_replace("--","",$value);
+            $set = explode("=",$set);
+            $createArr[$set[0]] = $set[1];
+        }
+    }
+    return $createArr;
+}
+
+
+if($argument[1] == "set"){
+
+    if($argument[2] == "database"){
+        $getSet = getArgument($argument);
+        
+        $dataCreate = "";
+
+        $dataCreateArtisan = "";
+
+        foreach($getSet as $key => $nilai){
+            $dataCreate .= "'".$key."' => '".$nilai."', \n";
+        }
+
+        foreach($getSet as $key => $nilai){
+            if ($key == "database") {
+                $dataCreateArtisan .= "public $".$key." = '".$nilai."'; \n";
+            }else{
+                $dataCreateArtisan .= "private $".$key." = '".$nilai."'; \n";
+            }
+        }
+
+        $myfile = "templating/set/database.template";
+        $mytemplate = fopen($myfile, "r");
+        $data = fread($mytemplate, filesize($myfile));
+        $data = str_replace("{ set_db }", $dataCreate, $data);
+        fclose($mytemplate);
+        unlink('application/config/database.php');
+        $filecreate = 'application/config/database.php';
+        $create = fopen($filecreate, "w");
+        fwrite($create, $data);
+        fclose($create);
+        print "Codigniter updated \n";
+
+        $myfile = "templating/set/database_artisan.template";
+        $mytemplate = fopen($myfile, "r");
+        $data = fread($mytemplate, filesize($myfile));
+        $data = str_replace("{ set_db }", $dataCreateArtisan, $data);
+        fclose($mytemplate);
+        unlink('gugus_artisan/database.php');
+        $filecreate = 'gugus_artisan/database.php';
+        $create = fopen($filecreate, "w");
+        fwrite($create, $data);
+        fclose($create);
+        print "Artisan Update updated";
+    }
+
+}
+

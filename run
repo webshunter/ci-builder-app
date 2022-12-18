@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+// argument
+
+require_once 'gugus_artisan/db_table.php';
+
+exec("php gugus database");
+
+foreach(crdb() as $key => $val){
+    if (!isset($val["commandupdate"])) {
+        exec($val["command"]);
+    }
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+// argument
+$argument = $argv;
+
+require_once 'gugus_artisan/gettable.php';
+print "database created";

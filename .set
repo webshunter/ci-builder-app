@@ -1,0 +1,330 @@
+{
+  "nama_perusahaan": "Project Manager"
+  ,"nama": "Project Manager"
+  ,"logo":"https://webshunter.github.io/api.github.io/indowebs.png"
+  ,"bg-icon":"assets/bg-icon.png"
+  ,"bg":"https://infomalang.web.app/api/bg.png"
+  ,"alamat": "Jl Seruni 35 Watugede"
+  ,"hp": "0341-454127"
+  ,"email": "-",
+  "username": "admin",
+  "password": "administrator",
+  "copyright": "&copy; copyright by indowebs.my.id",
+  "admincopyright": "Support by indowebs.my.id",
+  "transaksi": {
+    "kasbank": {
+      "akun" : {
+        "kategori_akun_id": "1"
+      }
+    }
+  },
+  "menu-setting":
+    {
+
+      "Dasbor" : {
+        "icon" : "fa fa-desktop",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Laporan" : {
+        "icon" : "fas fa-book",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Kontak" : {
+        "icon" : "fas fa-address-book",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Daftar Akun" : {
+        "icon" : "fas fa-clipboard-list",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Produk" : {
+        "icon" : "fas fa-archive",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Daftar Lain" : {
+        "icon" : "fas fa-file-alt",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Produksi" : {
+        "icon" : "fas fa-industry",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Biaya" : {
+        "icon" : "fas fa-tags",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Pembelian" : {
+        "icon" : "fas fa-shopping-cart",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Penjualan" : {
+        "icon" : "fas fa-credit-card",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "User" : {
+        "icon" : "fas fa-user",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      },
+      "Profile" : {
+        "icon" : "fas fa-user",
+        "link" : "home",
+        "level" : "admin",
+        "admin" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "sales" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "gudang" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        },
+        "accounting" : {
+          "delete" : "true",
+          "update" : "true",
+          "create" : "true"
+        }
+      }
+    },
+  "akun-ongkir" : "265",
+  "kontak-karyawan" : "5",
+  "kontak-pelanggan" : "1",
+  "kontak-supplier" : "2",
+  "barang-produksi" : "1"
+}

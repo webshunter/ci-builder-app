@@ -1,0 +1,41 @@
+$arr[] = [ 
+    'table' => 'project', 
+    'data' => [ 
+        'id' => ai(), 
+        'nama' => char(255),  
+        'tanggal' => char(255),  
+        'keterangan' => textlong(),  
+        'status' => char(255),  
+        'created_at' => timestamp(), 
+        'updated_at' => timestampupdate(), 
+        'delete_set' => char(1, 0),
+    ], 
+    'form' => [ 
+        'id' => 'no', 
+        'nama' => 'text', 
+        'tanggal' => 'text', 
+        'keterangan' => 'text', 
+        'status' => 'text',
+    ], 
+    'name' => [ 
+        'no', 
+        'nama', 
+        'tanggal', 
+        'keterangan', 
+        'status', 
+    ], 
+    "title" => [
+          "view" => "Project",
+          "edit" => "Ubah Project",
+          "new" => "Tambahkan Project"
+      ],
+    'command' => 'php gugus template project --crud project',
+    'value' => [
+      [
+          "nama" => "Karya Karma Perkasa",
+          "tanggal" => "2021-10-15",
+          "keterangan" => "",
+          "status" => "1",
+      ]
+    ]
+  ]; 
