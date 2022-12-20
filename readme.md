@@ -1,7 +1,11 @@
 # builder project app with ci3 and admin lte
 ## artisan system automatic
-di buat untuk melakukan pengembangan system dan project app automaticly dan pencatatan progress app.
-folder artisan
+di buat untuk melakukan pengembangan system dan project app automaticly dan pencatatan progress app. dengan system requirement sebagai berikut :
+- php 7.1.3 / up
+- php cli
+- mysql / mongodb 
+
+folder artisan 
 ```
 gugus_artisan/
 templating/
