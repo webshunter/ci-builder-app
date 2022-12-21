@@ -1,2 +1,54 @@
 # artisan documentation
-tatacara penggunaan artisan 
+tata cara penggunaan artisan.
+### pembuatan datatable baru
+untuk membuat datatable baru pertama anda harus membuat config setingnya terlebih dahulu dengan cara buat file .set di folder dbset, berikut contoh configurasinya
+```
+$arr[] = [ 
+    'table' => 'project', 
+    'data' => [ 
+        'id' => ai(), 
+        'nama' => char(255),  
+        'tanggal' => char(255),  
+        'keterangan' => textlong(),  
+        'status' => char(255),  
+        'created_at' => timestamp(), 
+        'updated_at' => timestampupdate(), 
+        'delete_set' => char(1, '0'),
+    ], 
+    'form' => [ 
+        'id' => 'no', 
+        'nama' => 'text', 
+        'tanggal' => 'text', 
+        'keterangan' => 'text', 
+        'status' => 'text',
+        'created_at' => 'no',
+        'updated_at' => 'no',
+        'delete_set' => 'no',
+    ], 
+    'name' => [ 
+        'no', 
+        'nama', 
+        'tanggal', 
+        'keterangan', 
+        'status', 
+        'created_at', 
+        'updated_at', 
+    ], 
+    "title" => [
+          "view" => "Project",
+          "edit" => "Ubah Project",
+          "new" => "Tambahkan Project"
+      ],
+    'command' => 'php artisan template project --crud project',
+    'value' => [
+      [
+          "nama" => "Karya Karma Perkasa",
+          "tanggal" => "2021-10-15",
+          "keterangan" => "",
+          "status" => "1",
+          "delete_set" => "0",
+      ]
+    ]
+  ]; 
+```
+

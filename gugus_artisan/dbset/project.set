@@ -34,7 +34,7 @@ $arr[] = [
           "edit" => "Ubah Project",
           "new" => "Tambahkan Project"
       ],
-    'command' => 'php gugus template project --crud project',
+    'command' => 'php artisan template project --crud project',
     'value' => [
       [
           "nama" => "Karya Karma Perkasa",
