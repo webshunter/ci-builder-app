@@ -11,10 +11,16 @@ gugus_artisan/
 templating/
 ```
 
+command artisan digunakan untuk clear project
+
+```
+php artisan clear
+```
+
 command artisan digunakan untuk membuat database 
 
 ```
-php gugus database
+php artisan database
 ```
 
 dan setting database ada di
