@@ -689,7 +689,7 @@ function binaryToString($binary = null)
 }
 
 function ffread($dir = ""){
-    $filename = $dir;
+    $filename = '../'.$dir;
     $handle = fopen($filename, "r");
     $contents = fread($handle, filesize($filename));
     fclose($handle);
@@ -716,7 +716,7 @@ function setting($a = null)
 }
 
 function ffwrite($dir = "", $text = ""){
-    $file = fopen($dir,"w");
+    $file = fopen('../'.$dir,"w");
     fwrite($file, $text);
     fclose($file);
 }

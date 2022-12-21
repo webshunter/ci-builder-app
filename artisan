@@ -38,6 +38,11 @@ function deleteDir($dirPath = null) {
 
 // $getdb = $db['default'];
 
+if($argument[1] == "make"){
+    require_once 'gugus_artisan/make/index.php';
+    print("\n");
+}
+
 if($argument[1] == "clear"){
     deleteDir('application/controllers/admin');
     mkdir('application/controllers/admin');

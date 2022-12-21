@@ -9,14 +9,24 @@ $arr[] = [
   
     ], 
     'form' => [ 
-    ], 
+        'id' => 'no', 
+        'nama' => 'text', 
+        'created_at' => 'no',
+        'updated_at' => 'no',
+        'delete_set' => 'no',
+    ],
     'name' => [ 
+        'No', 
+        'Nama', 
+        'Created_At', 
+        'Udated_At', 
     ], 
     "title" => [
-          "view" => "user",
-          "edit" => "Ubah user",
-          "new" => "Tambahkan user"
-      ],
+        "view" => "Status",
+        "edit" => "Ubah Status",
+        "new" => "Tambahkan Status"
+    ],
+    'command' => 'php artisan template master_status --crud status',
     'value' => [
       [
           "nama" => "proses",
@@ -31,6 +41,5 @@ $arr[] = [
           "delete_set" => "0",
       ]
     ]
-  ]; 
-   
+  ];
   

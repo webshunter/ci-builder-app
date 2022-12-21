@@ -4,4 +4,4 @@
 
 print("Server run on http://192.168.0.102:9191");
 
-exec("php -S 192.168.0.102:9191");
+exec("cd public && php -S 192.168.0.102:9191");

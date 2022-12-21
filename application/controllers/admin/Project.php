@@ -86,57 +86,43 @@ class Project extends CI_Controller {
         $this->load->view('templateadmin/footer');
     }
 
-
     public function simpan(){
         $nama = post("nama");
-$tanggal = post("tanggal");
-$keterangan = post("keterangan");
-$status = post("status");
-
-        
-
+        $tanggal = post("tanggal");
+        $keterangan = post("keterangan");
+        $status = post("status");
         $simpan = $this->db->query("
             INSERT INTO project
             (nama,tanggal,keterangan,status) VALUES ('$nama','$tanggal','$keterangan','$status')
         ");
-    
-
         if($simpan){
             redirect('admin/project');
         }
     }
 
     public function update(){
-          $key = post('id'); $nama = post("nama");
-$tanggal = post("tanggal");
-$keterangan = post("keterangan");
-$status = post("status");
-
+        $key = post('id'); $nama = post("nama");
+        $tanggal = post("tanggal");
+        $keterangan = post("keterangan");
+        $status = post("status");
         $simpan = $this->db->query("
             UPDATE project SET  nama = '$nama', tanggal = '$tanggal', keterangan = '$keterangan', status = '$status' WHERE id = '$key'
-            ");
-    
-
+        ");
         if($simpan){
             redirect('admin/project');
         }
     }
-    
+
     public function exls(array $data = [], array $headers = [], $fileName = 'data-project.xlsx')
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-
         $headers = ["no","nama","tanggal","keterangan","status","created at","updated at", "action"];
-
         $calldata = ["nama","tanggal","keterangan","status","created_at","updated_at"];
-
         for ($i = 0, $l = sizeof($headers); $i < $l; $i++) {
             $sheet->setCellValueByColumnAndRow($i + 1, 1, $headers[$i]);
         }
-        
         $qr = $this->db->query("SELECT * FROM $this->table1")->result();
-
         foreach($qr as $i => $vv){
             $j = 1;
             $sheet->setCellValueByColumnAndRow(0 + 1, ($i + 1 + 1), $i + 1);
@@ -145,13 +131,10 @@ $status = post("status");
                 $j++;
             }
         }
-
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
-
     }
-
 
 }
