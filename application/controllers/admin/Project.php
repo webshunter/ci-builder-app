@@ -4,29 +4,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Theaters extends CI_Controller {
+class Project extends CI_Controller {
 
-	private $table1 = 'theaters';
+	private $table1 = 'project';
 
 	public function __construct()
 	{
 		parent::__construct();
-        //Cek_login::ceklogin();
+        Cek_login::ceklogin();
 		$this->load->model('Createtable');
 		$this->load->model('Datatable_gugus');
 	}
 
 	public function index()
 	{
-        $this->Createtable->location('admin/theaters/table_show');
+        $this->Createtable->location('admin/project/table_show');
         $this->Createtable->table_name('tableku');
-        $this->Createtable->create_row(["Nama"," Alamat"," Lokasi"," Telp", "action"]);
-        $this->Createtable->order_set('0, 4');
+        $this->Createtable->create_row(["no","nama","tanggal","keterangan","status","created at","updated at", "action"]);
+        $this->Createtable->order_set('0, 7');
 		$show = $this->Createtable->create();
 
 		$data['datatable'] = $show;
         $this->load->view('templateadmin/head');
-        $this->load->view('admin/theaters/view', $data);
+        $this->load->view('admin/project/view', $data);
         $this->load->view('templateadmin/footer');
 	}
 
@@ -51,18 +51,18 @@ class Theaters extends CI_Controller {
                     ],
                     'search' => [
                         'value' => $this->Datatable_gugus->search(),
-                        'row' => ["nama","alamat","lokasi","telp"]
+                        'row' => ["nama","tanggal","keterangan","status","created_at","updated_at"]
                     ],
                     'table-draw' => post('draw'),
                     'table-show' => [
                         'key' => 'id',
-                        'data' => ["nama","alamat","lokasi","telp"]
+                        'data' => ["nama","tanggal","keterangan","status","created_at","updated_at"]
                     ],
                     "action" => "standart",
                     'order' => [
                         'order-default' => ['id', 'ASC'],
                         'order-data' => $setorder,
-                        'order-option' => [ "1"=>"nama", "2"=>"alamat", "3"=>"lokasi", "4"=>"telp", "5"=>"created_at", "6"=>"updated_at", "7"=>"delete_set"],
+                        'order-option' => [ "1"=>"nama", "2"=>"tanggal", "3"=>"keterangan", "4"=>"status", "5"=>"created_at", "6"=>"updated_at", "7"=>"delete_set"],
                     ],
                     
                 ]
@@ -72,7 +72,7 @@ class Theaters extends CI_Controller {
             $data_row = $this->db->query("SELECT * FROM ".$this->table1." WHERE id = '".$keyword."'")->row();
             $data['form_data'] = $data_row;
             $this->load->view('templateadmin/head');
-            $this->load->view('admin/theaters/edit', $data);
+            $this->load->view('admin/project/edit', $data);
             $this->load->view('templateadmin/footer');
         }elseif ($action == "delete") {
             $hapus_data = $this->db->query("UPDATE ".$this->table1." SET delete_set = '1' WHERE id = '".post("id")."'");
@@ -82,54 +82,54 @@ class Theaters extends CI_Controller {
     public function tambah_data()
     {
         $this->load->view('templateadmin/head');
-        $this->load->view('admin/theaters/tambah');
+        $this->load->view('admin/project/tambah');
         $this->load->view('templateadmin/footer');
     }
 
 
     public function simpan(){
         $nama = post("nama");
-$alamat = post("alamat");
-$lokasi = post("lokasi");
-$telp  = post("telp ");
+$tanggal = post("tanggal");
+$keterangan = post("keterangan");
+$status = post("status");
 
         
 
         $simpan = $this->db->query("
-            INSERT INTO theaters
-            (nama,alamat,lokasi,telp ) VALUES ('$nama','$alamat','$lokasi','$telp ')
+            INSERT INTO project
+            (nama,tanggal,keterangan,status) VALUES ('$nama','$tanggal','$keterangan','$status')
         ");
     
 
         if($simpan){
-            redirect('admin/theaters');
+            redirect('admin/project');
         }
     }
 
     public function update(){
           $key = post('id'); $nama = post("nama");
-$alamat = post("alamat");
-$lokasi = post("lokasi");
-$telp  = post("telp ");
+$tanggal = post("tanggal");
+$keterangan = post("keterangan");
+$status = post("status");
 
         $simpan = $this->db->query("
-            UPDATE theaters SET  nama = '$nama', alamat = '$alamat', lokasi = '$lokasi', telp  = '$telp ' WHERE id = '$key'
+            UPDATE project SET  nama = '$nama', tanggal = '$tanggal', keterangan = '$keterangan', status = '$status' WHERE id = '$key'
             ");
     
 
         if($simpan){
-            redirect('admin/theaters');
+            redirect('admin/project');
         }
     }
     
-    public function exls(array $data = [], array $headers = [], $fileName = 'data-theaters.xlsx')
+    public function exls(array $data = [], array $headers = [], $fileName = 'data-project.xlsx')
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $headers = ["Nama"," Alamat"," Lokasi"," Telp", "action"];
+        $headers = ["no","nama","tanggal","keterangan","status","created at","updated at", "action"];
 
-        $calldata = ["nama","alamat","lokasi","telp"];
+        $calldata = ["nama","tanggal","keterangan","status","created_at","updated_at"];
 
         for ($i = 0, $l = sizeof($headers); $i < $l; $i++) {
             $sheet->setCellValueByColumnAndRow($i + 1, 1, $headers[$i]);

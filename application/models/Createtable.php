@@ -25,6 +25,7 @@ class Createtable extends CI_Model{
 
     public function location($location)
     {
+        create_session("back-location", $_SERVER['REQUEST_URI']);
         $this->table_location = $location;
     }
 
@@ -63,14 +64,11 @@ class Createtable extends CI_Model{
                             id: dataId
                         }, success:function(){
                             '.$this->table_name.'.ajax.reload();
-                            $(".modal").modal("toggle");
                         }
                     })
                     swal("Data Telah Dihapus !");
                   }, 1000);
                 });
-
-
             })
         ';
 
@@ -117,7 +115,6 @@ class Createtable extends CI_Model{
                 </table>
                 <script>
 
-
                     '.$this->config_csrf().'
 
                     var func = function(a, b){
@@ -146,6 +143,7 @@ class Createtable extends CI_Model{
                                 }
                             },
                             processing: true,
+                            stateSave: true,
                             serverSide: true,
                             order: [],
                             ajax: {

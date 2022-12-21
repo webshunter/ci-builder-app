@@ -12,16 +12,58 @@ function ffread($dir = ""){
 
 }
 
+function deleteDir($dirPath = null) {
+    if($dirPath == null){
+        die();
+    }
+    if (! is_dir($dirPath)) {
+        throw new InvalidArgumentException("$dirPath must be a directory");
+    }
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+        $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($dirPath);
+}
+
 // var_dump($argument);
 // require_once 'application/config/database.php';
 
 // $getdb = $db['default'];
 
+if($argument[1] == "clear"){
+    deleteDir('application/controllers/admin');
+    mkdir('application/controllers/admin');
+    deleteDir('application/views/admin');
+    mkdir('application/views/admin');
+    print "clear";
+    print("\n");
+}
+
 if($argument[1] == "database"){
 
-    print("say hello");
+    $table = $argument[2];    
     require_once 'gugus_artisan/db_table_set.php';
     print "database created";
+    print("\n");
+}
+
+if($argument[1] == "drop-table"){
+    
+    if(isset($argument[2])){
+        require_once 'gugus_artisan/db_table_set.php';
+        print "drop table ";
+    }else{
+        print "please insert table name";
+    }
+    print("\n");
 
 }
 

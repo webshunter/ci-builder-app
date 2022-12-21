@@ -8,7 +8,7 @@ $arr[] = [
         'status' => char(255),  
         'created_at' => timestamp(), 
         'updated_at' => timestampupdate(), 
-        'delete_set' => char(1, 0),
+        'delete_set' => char(1, '0'),
     ], 
     'form' => [ 
         'id' => 'no', 
@@ -16,6 +16,9 @@ $arr[] = [
         'tanggal' => 'text', 
         'keterangan' => 'text', 
         'status' => 'text',
+        'created_at' => 'no',
+        'updated_at' => 'no',
+        'delete_set' => 'no',
     ], 
     'name' => [ 
         'no', 
@@ -23,6 +26,8 @@ $arr[] = [
         'tanggal', 
         'keterangan', 
         'status', 
+        'created_at', 
+        'updated_at', 
     ], 
     "title" => [
           "view" => "Project",
@@ -36,6 +41,7 @@ $arr[] = [
           "tanggal" => "2021-10-15",
           "keterangan" => "",
           "status" => "1",
+          "delete_set" => "0",
       ]
     ]
   ]; 

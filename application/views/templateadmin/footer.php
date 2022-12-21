@@ -11,6 +11,13 @@
         </footer>
       </div>
 
+      <script>
+        setTimeout(function(){
+          console.clear()
+        },1000)
+
+      </script>
+
 </body>
 
 </html>

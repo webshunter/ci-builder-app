@@ -1,6 +1,237 @@
 <?php
 
+function obj($array = []){
+    return (object) $array;
+}
 
+function number($num = ''){
+  if($num == ''){
+    return 0;
+  }elseif($num == null){
+    return 0;
+  }else{
+    return $num;
+  }
+}
+
+function ifnull(...$arg){
+  $val = $arg[0];
+  $res = $arg[1];
+  if($val == NULL){
+    $val = $res;
+  }
+  if($val == ""){
+    $val = $res;
+  }
+  return $val;
+}
+
+function redirect_back()
+{
+  $dat = generate_session("back-location");
+  return redirect($dat);
+}
+
+
+function ip(){
+  $ipaddress = '';
+  if (isset($_SERVER['HTTP_CLIENT_IP']))
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+  else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  else if(isset($_SERVER['HTTP_X_FORWARDED']))
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+  else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+      $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+  else if(isset($_SERVER['HTTP_FORWARDED']))
+      $ipaddress = $_SERVER['HTTP_FORWARDED'];
+  else if(isset($_SERVER['REMOTE_ADDR']))
+      $ipaddress = $_SERVER['REMOTE_ADDR'];
+  else
+      $ipaddress = 'UNKNOWN';
+  return $ipaddress;
+}
+
+
+function dd()
+{
+  $args = func_get_args();
+  $value = $args[0];
+  if($args[0] === true){
+    $value = $args[1];
+  }
+  if(is_array($value)){
+      echo "<table style='background: black; color: white; border: 1px solid white;'>";
+
+      if(count($value) > 0){
+        $obj = array_keys((array) $value[0]);
+        $colp = [];
+        echo "<tr>";
+        foreach($obj as $key => $tr){
+          echo "<td style='border-collapse:collapse;border: 1px solid white;padding: 3px 8px;'>";
+          echo $tr;
+          echo "</td>";
+          $colp[] = $tr;
+        }
+        echo "</tr>";
+
+        foreach($value as $val){
+          $val = (array) $val;
+          echo "<tr>";
+          foreach($colp as $q){
+            echo "<td style='border-collapse:collapse;border: 1px solid white;padding: 3px 8px;'>";
+            if(is_array($val[$q])){
+              $y[] = true;
+              $y[] = $val[$q];
+              call_user_func_array('dd', $y);
+            }else{
+              echo $val[$q];
+            }
+            echo "</td>";
+          }
+          echo "</tr>";
+        }
+
+      }
+      echo "</table>";
+      if ($args[0] !== true) {
+        die();
+      }
+  }else{
+      echo "<pre>";
+      var_dump($value);
+      echo "</pre>";
+  }
+}
+
+function array_orderby()
+{
+  $args = func_get_args();
+  $data = array_shift($args);
+  foreach ($args as $n => $field) {
+    if (is_string($field)) {
+      $tmp = array();
+      foreach ($data as $key => $row)
+        $tmp[$key] = $row->$field;
+      $args[$n] = $tmp;
+    }
+  }
+  $args[] = &$data;
+  call_user_func_array('array_multisort', $args);
+  return array_pop($args);
+}
+
+function order(){
+  $args = func_get_args();
+  $args = $args[0];
+  $fab = array_keys($args);
+
+
+  $dc = [];
+  foreach ($fab as $key => $fab) {
+    if( $args[$fab] == 'asc' ){
+      $dc[] = $fab;
+      $dc[] = SORT_ASC;
+    }elseif($args[$fab] == 'desc'){
+      $dc[] = $fab;
+      $dc[] = SORT_DESC;
+    }else{
+      $dc[] = $args[$fab];
+    }
+  }
+
+  return call_user_func_array('array_orderby', $dc);
+
+}
+
+function ifforstr($tab = null, $nm = null)
+{
+  return "IF($tab.$nm <> \"\", $tab.$nm, \"-\") as $nm";
+}
+
+function iffornum($tab = null, $nm = null)
+{
+  return "IF($tab.$nm <> \"\", $tab.$nm, 0) as $nm";
+}
+
+function fullpage(){
+  $page = " <script>  ";
+  $page .= " document.body.className = 'sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse';  ";
+  $page .= " </script>  ";
+  return $page;
+}
+
+function tglminus($tgl = NULL, $min = 1)
+{
+    $oneday = strtotime('2000-10-12') - strtotime('2000-10-11');
+    $minus = strtotime($tgl) - $oneday;
+    return date('Y-m-d', $minus);
+}
+
+function sethistory()
+{
+    create_session('back-location', $_SERVER['REQUEST_URI']);
+}
+
+function getset($get = "")
+{
+  if ($get != "") {
+    if (isset(json_decode(ffread('.set'), true)[$get])) {
+      return json_decode(ffread('.set'), true)[$get];
+    }else{
+      return NULL;
+    }
+  }else{
+    return json_decode(ffread('.set'), true);
+  }
+}
+
+
+
+function namabulan($dat=1)
+{
+  $nama = [
+    "01"=> "Januari",
+    "02" => "Februari",
+    "03" => "Maret",
+    "04" => "April",
+    "05" => "Mei",
+    "06" => "Juni",
+    "07" => "Juli",
+    "08" => "Agustus",
+    "09" => "September",
+    "10" => "Oktober",
+    "11" => "November",
+    "12" => "Desember"
+  ];
+  return $nama[$dat];
+}
+
+function tanggal($tgl = null, $format = 'd-m-Y'){
+  if($tgl != null){
+    if ($format == 1) {
+      $y = date('Y', strtotime($tgl) );
+      $m = namabulan(date('m', strtotime($tgl) ));
+      $d = date('d', strtotime($tgl) );
+      return " $d $m $y ";
+    }else{
+      return '<div style="text-align: center;">'.date($format, strtotime($tgl) ).'</div>';
+    }
+  }
+}
+
+function tgl($tgl = null, $format = 'd-m-Y'){
+  if($tgl != null){
+    if ($format == 1) {
+      $y = date('Y', strtotime($tgl) );
+      $m = namabulan(date('m', strtotime($tgl) ));
+      $d = date('d', strtotime($tgl) );
+      return " $d $m $y ";
+    }else{
+      return '<div style="text-align: left;display:inline-block;">'.date($format, strtotime($tgl) ).'</div>';
+    }
+  }
+}
 
 function clearhtml($value='')
 {
@@ -23,6 +254,63 @@ function clearhtml($value='')
     $value = str_replace("&nbsp;", "", $value);
 
     return $value;
+}
+
+function nospace(){
+  return "
+    <style>
+      table th{
+        text-align: center;
+      }
+      table td,
+      table th
+      {
+        white-space: nowrap;
+      }
+    </style>
+  ";
+}
+
+function cekoption($d = null,$n = null, $r = []){
+
+  $o = "<option value='$d'>".$n."</option>";
+
+  if(count($r) > 0){
+    foreach($r as $r){
+      if($r == $d){
+        $o = "<option selected value='$d'>".$n."</option>";
+      }
+    }
+  }
+
+  return $o;
+
+}
+
+function cekval($data, $default = null, $ceknan = false){
+  if($ceknan == false){
+    if($data != null && $data != ""){
+      return $data;
+    }else{
+      return $default;
+    }
+  }else{
+    if($data != null && $data != "" && $data != "NaN"){
+      return $data;
+    }else{
+      return $default;
+    }
+  }
+}
+
+function rp($numberrp = 0){
+  if ($numberrp >= 0) {
+    $rp = 'Rp '.number_format(($numberrp),2,',','.');
+    return $rp;
+  }else{
+    $rp = '( Rp '.number_format(($numberrp * -1),2,',','.')." )";
+    return $rp;
+  }
 }
 
 function format_tanggal($date = null)
@@ -148,12 +436,6 @@ function link_button($data)
 
     $icon = "";
 
-    $pattern = "/Tambah/i";
-
-    if(preg_match($pattern, $data['text']) > 0){
-        $icon = "<i class=\"fas fa-plus\"></i>";
-    }
-
     $pattern = "/Kembali/i";
 
     if(preg_match($pattern, $data['text']) > 0){
@@ -178,6 +460,12 @@ function link_button($data)
         $icon = "<i class=\"fas fa-money-bill-wave\"></i>";
     }
 
+    $pattern = "/Data/i";
+
+    if(preg_match($pattern, $data['text']) > 0){
+        $icon = "<i class=\"fas fa-database\"></i>";
+    }
+
     $pattern = "/pdf/i";
 
     if(preg_match($pattern, $data['text']) > 0){
@@ -190,12 +478,22 @@ function link_button($data)
         $icon = "<i class=\"fas fa-file-pdf\"></i>";
     }
 
+    $pattern = "/Tambah/i";
+
+    if(preg_match($pattern, $data['text']) > 0){
+        $data['text'] = str_replace("Tambah", "", $data['text']);
+        $icon = "<i class=\"fas fa-plus\"></i>";
+    }
+
     $html = "<a";
     if (isset($data['id'])) {
       $html .= " id = '".$data['id']."'";
     }
     $html .= " href = '".site_url($data['link'])."'";
     $html .= " class = '".$data['class']."'";
+    if (isset($data['attr'])) {
+      $html .= $data['attr'];
+    }
     $html .= " >";
     $html .= $icon." ".$data['text'];
     $html .= "</a>";
@@ -289,20 +587,16 @@ function potongtext($isi, $num = 255){
     return mb_substr(htmlspecialchars_decode($isi),0,$num,'HTML-ENTITIES');
 }
 
-function back()
+function back($icon = "")
 {
     return "
-        <button class=\"btn btn-default\" onclick=\"window.history.back()\">kembali</button>
-        <br>
-        <br>
+        <button type=\"button\" class=\"btn btn-default\" onclick=\"window.history.back()\"><i class='$icon'></i> kembali</button>
     ";
 }
 
-function strigToBinary($name = null)
+function strigToBinary($string = null)
 {
-    $rtk = $name;
-
-    $characters = str_split($rtk);
+    $characters = str_split($string);
 
     $binary = [];
     foreach ($characters as $character) {
@@ -330,6 +624,17 @@ function rupiah($angka = 0){
   }
 
 	$hasil_rupiah = number_format($angka,2,',','.');
+	return $hasil_rupiah;
+
+}
+
+function rupiah2($angka = 0){
+
+  if ($angka == NULL) {
+    $angka = 0;
+  }
+
+	$hasil_rupiah = number_format($angka,0,',','.');
 	return $hasil_rupiah;
 
 }
@@ -371,25 +676,6 @@ function terbilang($nilai = null) {
     return $hasil;
 }
 
-function namabulan($dat=1)
-{
-  $nama = [
-    "01"=> "Januari",
-    "02" => "Februari",
-    "03" => "Maret",
-    "04" => "April",
-    "05" => "Mei",
-    "06" => "Juni",
-    "07" => "Juli",
-    "08" => "Agustus",
-    "09" => "September",
-    "10" => "Oktober",
-    "11" => "November",
-    "12" => "Desember"
-  ];
-  return $nama[$dat];
-}
-
 function binaryToString($binary = null)
 {
     $binaries = explode(' ', $binary);
@@ -408,7 +694,13 @@ function ffread($dir = ""){
     $contents = fread($handle, filesize($filename));
     fclose($handle);
     return $contents;
+}
 
+function loadjs($name){
+  $data = ffread(APPJS.DIRECTORY_SEPARATOR.$name.".js");
+  echo "<script>";
+  echo $data;
+  echo "</script>";
 }
 
 function cekdir($dir='')

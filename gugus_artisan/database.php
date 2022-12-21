@@ -3,11 +3,16 @@
 
 class Database {
 
-    private $namaApss = "Magic-Framework";
-    private $hostname = 'localhost';
-    private $username = 'root';
-    private $password = '';
-    public $database = 'pmanager';
+        private $namaApss = "Magic-Framework";
+        private $hostname = 'localhost';
+        private $username = 'root';
+        private $password = '';
+        public $database = 'pmanager';
+	// private $namaApss = "Magic-Framework";
+	// private $hostname = '153.92.10.48';
+    // private $username = 'u4960381_silsilah';
+    // private $password = 'silsilah';
+    // public $database = 'u4960381_silsilah2';
 
     private $encryp = "awesomeframeworkwithgugus";
     private $type_data = "utf8";

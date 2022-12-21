@@ -34,7 +34,7 @@ function timestamp()
 }
 function timestampupdate()
 {
-	return ' DATETIME NULL DEFAULT NULL ';
+	return ' TIMESTAMP NULL DEFAULT NULL ';
 }
 
 function relation($table, $tablerow, $relation, $key = "id")

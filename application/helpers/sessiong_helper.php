@@ -2,19 +2,19 @@
 
 function create_session($name = "", $data_arr)
 {
-    $_SESSION[$name.'cvkaryacarmaperkasa'] = $data_arr;
+    $_SESSION[$name.'builderapp'] = $data_arr;
 }
 
 function destroy_session($name)
 {
-    unset($_SESSION[$name.'cvkaryacarmaperkasa']);
+    unset($_SESSION[$name.'builderapp']);
 }
 
 function generate_session($name = "", $defaultnull = "")
 {
-    if(isset($_SESSION[$name.'cvkaryacarmaperkasa'])){
-        if ($_SESSION[$name.'cvkaryacarmaperkasa'] != "") {
-            return $_SESSION[$name.'cvkaryacarmaperkasa'];
+    if(isset($_SESSION[$name.'builderapp'])){
+        if ($_SESSION[$name.'builderapp'] != "") {
+            return $_SESSION[$name.'builderapp'];
         }else{
             return $defaultnull;
         }

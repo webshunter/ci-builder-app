@@ -39,7 +39,6 @@ $arr[] = [
           "edit" => "Ubah user",
           "new" => "Tambahkan user"
       ],
-    'command' => 'php gugus template user --crud user',
     'value' => [
       [
           "nama" => "Gugus Darmayanto",

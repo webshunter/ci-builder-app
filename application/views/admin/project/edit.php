@@ -3,14 +3,9 @@
     <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Tambah Theater</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ url('toko') }}">Home</a></li>
-            </ol>
-        </div><!-- /.col -->
+            <div class="col-sm-12">
+                <h1 class="m-0 text-dark">Ubah Project</h1>
+            </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
     </div>
@@ -21,47 +16,59 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="<?= site_url('admin/theaters/simpan') ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= site_url('admin/project/update') ?>" method="post" enctype="multipart/form-data">
                         
+        <?=
+            form::input([
+                "type" => "hidden",
+                "fc" => "id",
+                "value" => $form_data->id,
+            ])
+        ?>
+    
                 <?=
                     form::input([
-                        "title" => " Alamat",
+                        "title" => "nama",
                         "type" => "text",
                         "fc" => "nama",
                         "placeholder" => "tambahkan nama",
+                        "value" => $form_data->nama,
                     ])
                 ?>
             
                 <?=
                     form::input([
-                        "title" => " Lokasi",
+                        "title" => "tanggal",
                         "type" => "text",
-                        "fc" => "alamat",
-                        "placeholder" => "tambahkan alamat",
+                        "fc" => "tanggal",
+                        "placeholder" => "tambahkan tanggal",
+                        "value" => $form_data->tanggal,
                     ])
                 ?>
             
                 <?=
                     form::input([
-                        "title" => " Telp",
+                        "title" => "keterangan",
                         "type" => "text",
-                        "fc" => "lokasi",
-                        "placeholder" => "tambahkan lokasi",
+                        "fc" => "keterangan",
+                        "placeholder" => "tambahkan keterangan",
+                        "value" => $form_data->keterangan,
                     ])
                 ?>
             
                 <?=
                     form::input([
-                        "title" => "",
+                        "title" => "status",
                         "type" => "text",
-                        "fc" => "telp ",
-                        "placeholder" => "tambahkan telp ",
+                        "fc" => "status",
+                        "placeholder" => "tambahkan status",
+                        "value" => $form_data->status,
                     ])
                 ?>
             
                         <div class="form-group">
                           <button type="submit" class="btn btn-primary">Simpan</button>
-                          <a class="btn btn-default" href="<?= site_url('admin/theaters'); ?>">Back</a>
+                          <a class="btn btn-default" href="<?= site_url('admin/project'); ?>">Back</a>
                         </div>
                     </form>
                 </div>
@@ -70,3 +77,4 @@
       </div>
     </section>
 </div>
+

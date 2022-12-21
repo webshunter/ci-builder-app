@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Datatable_gugus extends CI_Model{
-    private $query;
+  private $query;
 	private $limit;
 	private $startfrom;
 	private $key;
@@ -15,9 +15,11 @@ class Datatable_gugus extends CI_Model{
 	private $custom_button;
 	private $custom_button2;
 	private $custome;
+	private $count;
 	public function datatable($data = "")
 	{
 		$query = " SELECT ";
+		$count = " SELECT ";
 		if(isset($data['select'])){
 			if (!isset($data['leftJoin'])) {
 				foreach ($data['select'] as $key => $value) {
@@ -33,14 +35,26 @@ class Datatable_gugus extends CI_Model{
 					if ($number == 0) {
 						foreach ($value as $num => $nilai) {
 							if ($num == 0) {
-								$query .= $key.'.'.$nilai;
+								if (strpos($nilai, '#') !== false) {
+									$query .= str_replace("#","",$nilai);
+								}else{
+									$query .= $key.'.'.$nilai;
+								}
 							}else{
+								if (strpos($nilai, '#') !== false) {
+									$query .= ','.str_replace("#","",$nilai);
+								}else{
 								$query .= ','.$key.'.'.$nilai;
+								}
 							}
 						}
 					}else{
 						foreach ($value as $num => $nilai) {
-							$query .= ','.$key.'.'.$nilai;
+							if (strpos($nilai, '#') !== false) {
+								$query .= ','.str_replace("#","",$nilai);
+							}else{
+								$query .= ','.$key.'.'.$nilai;
+							}
 						}
 					}
 					$number++;
@@ -49,21 +63,27 @@ class Datatable_gugus extends CI_Model{
 		}else{
 			$query .= " * ";
 		}
+    $count .= " count(*) as tot  FROM ";
 		$query .= " FROM ";
 		$query .= " ".$data['table']." ";
+		$count .= " ".$data['table']." ";
 		$this->table_name = $data['table'];
 		if (isset($data['leftJoin'])) {
 			foreach ($data['leftJoin'] as $key => $value) {
 				$query .= " LEFT JOIN ".$key." ON ".$value[0]." ".$value[1]." ".$value[2]."";
+				$count .= " LEFT JOIN ".$key." ON ".$value[0]." ".$value[1]." ".$value[2]."";
 			}
 		}
 		if (isset($data['where'])) {
 			$query .= " WHERE ";
+			$count .= " WHERE ";
 			foreach ($data['where'] as $keys => $value) {
 				if ($keys == 0) {
 					$query .= $value[0].' '.$value[1].' "'.$value[2].'"';
+					$count .= $value[0].' '.$value[1].' "'.$value[2].'"';
 				}else{
 					$query .= ' AND '.$value[0].' '.$value[1].' "'.$value[2].'"';
+					$count .= ' AND '.$value[0].' '.$value[1].' "'.$value[2].'"';
 				}
 			}
 		}
@@ -71,17 +91,22 @@ class Datatable_gugus extends CI_Model{
 			$nilai_pencarian = $data['search']['value'];
 			if(isset($data['where'])){
 				$query .= " AND (";
+				$count .= " AND (";
 			}else{
 				$query .= " WHERE (";
+				$count .= " WHERE (";
 			}
 			foreach ($data['search']['row'] as $keys => $value) {
 				if ($keys == 0) {
 					$query .= $value.' LIKE "%'.$nilai_pencarian.'%"';
+					$count .= $value.' LIKE "%'.$nilai_pencarian.'%"';
 				}else{
 					$query .= " OR ".$value.' LIKE "%'.$nilai_pencarian.'%"';
+					$count .= " OR ".$value.' LIKE "%'.$nilai_pencarian.'%"';
 				}
 			}
 			$query .= ") ";
+			$count .= ") ";
 		}
 		if (isset($data['order'])) {
 			if ($data['order']['order-data'] != "") {
@@ -94,8 +119,10 @@ class Datatable_gugus extends CI_Model{
 					}
 				}
 				$query .= " ORDER BY ".$order_by." ".$order_condition." ";
+				$count .= " ORDER BY ".$order_by." ".$order_condition." ";
 			}else{
 				$query .= " ORDER BY ".$data['order']['order-default'][0]." ".$data['order']['order-default'][1]." ";
+				$count .= " ORDER BY ".$data['order']['order-default'][0]." ".$data['order']['order-default'][1]." ";
 			}
 		}
 		if (isset($data['table-show'])) {
@@ -125,6 +152,7 @@ class Datatable_gugus extends CI_Model{
 			$this->custome = $data["custome"];
 		}
 		$this->query = $query;
+		$this->count = $count;
 	}
 	private function query_data()
 	{
@@ -133,8 +161,8 @@ class Datatable_gugus extends CI_Model{
 	private function query_limit(){
 		return $this->db->query($this->query.$this->limit);
 	}
-	private function query_count(){
-		return $this->query_data()->num_rows();
+  private function query_count(){
+		return $this->db->query($this->count)->row()->tot;
 	}
 	private function buat_table(){
         $arr = [];
@@ -163,11 +191,11 @@ class Datatable_gugus extends CI_Model{
             	}elseif(preg_match("/{$rupiah}/i", $variable)) {
                 $rpd = explode(":", $variable);
                 $spdv = $rpd[1];
-                $child[] = "Rp. ".rupiah($value->$spdv);
+                $child[] = rp(cekval($value->$spdv, 0, true));
             	}elseif(preg_match("/{$number}/i", $variable)) {
                 $rpd = explode(":", $variable);
                 $spdv = $rpd[1];
-                $child[] = rupiah($value->$spdv);
+                $child[] = rupiah(cekval($value->$spdv, 0, true));
             	}elseif(preg_match("/{$artikel}/i", $variable)) {
             		$datavar = explode(":", $variable);
             		$data1 = $datavar[1];
@@ -201,12 +229,26 @@ class Datatable_gugus extends CI_Model{
 					if(isset($this->custome[$variable])){
 						if (isset($this->custome[$variable]['content'])) {
 							$content = $this->custome[$variable]['content'];
+              $formatData = [];
+              if (isset($this->custome[$variable]['format'])) {
+                $formatData = $this->custome[$variable]['format'];
+              }
 							$key = $this->custome[$variable]['key'];
-							foreach($key as $key){
+							foreach($key as $nm => $key){
+                $pop = $key;
+                $vv  = $value->$key;
+                if (isset($formatData[$nm])) {
+                  if ($formatData[$nm] == "rupiah") {
+                    $vv = rp(cekval($value->$pop, 0));
+                  }elseif ($formatData[$nm] == "number") {
+                    $vv = rupiah(cekval($value->$pop, 0));
+                  }
+                }
+
 								$content = str_replace('{{base_url}}', base_url(''), $content);
 								$content = str_replace('{{site_url}}', site_url(''), $content);
 								$content = str_replace('{{xxx}}', $mynom, $content);
-								$content = str_replace('{{'.$key.'}}', $value->$key, $content);
+								$content = str_replace('{{'.$pop.'}}', $vv, $content);
 							}
 							$child[] = $content;
 						}elseif(isset($this->custome[$variable]['replacerow'])){
@@ -232,7 +274,12 @@ class Datatable_gugus extends CI_Model{
               }
 						}
 					}else{
-						$child[] = $value->$variable;
+						// set format tanggal if condition is true
+						if (strpos($variable, 'tanggal') !== false || strpos($variable, 'tgl') !== false || strpos($variable, 'jatuh_tempo') !== false ) {
+								$child[] = date("d-m-Y" ,strtotime($value->$variable));
+							}else{
+								$child[] = $value->$variable;
+							}
 					}
             	}
 			}
@@ -259,7 +306,41 @@ class Datatable_gugus extends CI_Model{
               if (isset($this->actcond)) {
                 $conddata = $this->actcond['data'];
                 if ($value->$conddata != $this->actcond['val']) {
-                  $child[] = $this->actcond['content'];
+
+					$key = [];
+					$formatData = [];
+
+					if (isset($this->actcond['key'])) {
+					$key = $this->actcond['key'];
+					}
+
+					if (isset($this->actcond['format'])) {
+					$formatData = $this->actcond['format'];
+					}
+
+                	$content = $this->actcond['content'];
+
+					foreach($key as $nm => $key){
+						$rupiah = "rupiah:";
+						$number = "number:";
+						$pop = $key;
+						$vv = $value->$pop;
+
+						if (isset($formatData[$nm])) {
+							if ($formatData[$nm] == "rupiah") {
+							$vv = rp(cekval($value->$pop));
+							}elseif ($formatData[$nm] == "number") {
+							$vv = rupiah(cekval($value->$pop, 0));
+							}
+						}
+
+						$content = str_replace('{{base_url}}', base_url(''), $content);
+						$content = str_replace('{{site_url}}', site_url(''), $content);
+						$content = str_replace('{{'.$pop.'}}', $vv, $content);
+					}
+
+                  $child[] = $content;
+
                 }else{
                 $child[] = "
                   <center>
@@ -315,10 +396,13 @@ class Datatable_gugus extends CI_Model{
 	// 	echo($this->query_count());
 	// }
 	public function table_show(){
+
+    $tot = $this->query_count();
+
 		$r = array(
             "draw"            => $this->table_draw,
-            "recordsTotal"    => intval( $this->query_count() ),
-            "recordsFiltered" => intval( $this->query_count() ),
+            "recordsTotal"    => intval( $tot ),
+            "recordsFiltered" => intval( $tot ),
             "data"            => $this->buat_table(),
         );
         echo json_encode($r);

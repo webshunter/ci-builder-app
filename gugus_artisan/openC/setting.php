@@ -41,36 +41,6 @@ function newapi($table)
     }
 }
 
-function countRow($table)
-{
-    require_once 'gugus_artisan/db_table.php';
-    $cc = null;
-    $datar = crdb();
-    foreach($datar as $eld){
-        if($eld["table"] == $table){
-            $cc = $eld;
-        }
-    }
-
-    $name  = count($cc['name']);
-    return $name;
-}
-
-function searchrow($table)
-{
-    require_once 'gugus_artisan/db_table.php';
-    $cc = null;
-    $datar = crdb();
-    foreach($datar as $eld){
-        if($eld["table"] == $table){
-            $cc = $eld;
-        }
-    }
-
-    $name  = '["'.join('","', $cc['show'] ).'"]';
-    return $name;
-}
-
 function getrowname($table)
 {
     require_once 'gugus_artisan/db_table.php';
@@ -337,7 +307,7 @@ function create_form($table = ""){
     $form = $cc["form"];
 
     $nm = $cc["data"];
-    $thname = $cc["fname"];
+    $thname = $cc["name"];
 
     $html = "";
 
@@ -552,7 +522,7 @@ function create_form_edit($table = ""){
     ';
 
 
-    $thname = $cc["fname"];
+    $thname = $cc["name"];
     $number = 0;
     foreach($nm as $key => $nm){
         if($form[$key] == "no"){

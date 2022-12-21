@@ -11,14 +11,14 @@ class {{ className_controller }} extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-        //Cek_login::ceklogin();
+        Cek_login::ceklogin();
 		$this->load->model('Createtable');
 		$this->load->model('Datatable_gugus');
 	}
 
 	public function index()
 	{
-        $this->Createtable->location('eadmin/{{ className }}/table_show');
+        $this->Createtable->location('admin/{{ className }}/table_show');
         $this->Createtable->table_name('tableku');
         $this->Createtable->create_row({{ table_head }});
         $this->Createtable->order_set('0, {{ total_row }}');
@@ -26,7 +26,7 @@ class {{ className_controller }} extends CI_Controller {
 
 		$data['datatable'] = $show;
         $this->load->view('templateadmin/head');
-        $this->load->view('eadmin/{{ className }}/view', $data);
+        $this->load->view('admin/{{ className }}/view', $data);
         $this->load->view('templateadmin/footer');
 	}
 
@@ -72,7 +72,7 @@ class {{ className_controller }} extends CI_Controller {
             $data_row = $this->db->query("SELECT * FROM ".$this->table1." WHERE {{ keys }} = '".$keyword."'")->row();
             $data['form_data'] = $data_row;
             $this->load->view('templateadmin/head');
-            $this->load->view('eadmin/{{ className }}/edit', $data);
+            $this->load->view('admin/{{ className }}/edit', $data);
             $this->load->view('templateadmin/footer');
         }elseif ($action == "delete") {
             $hapus_data = $this->db->query("UPDATE ".$this->table1." SET delete_set = '1' WHERE {{ keys }} = '".post("id")."'");
@@ -82,7 +82,7 @@ class {{ className_controller }} extends CI_Controller {
     public function tambah_data()
     {
         $this->load->view('templateadmin/head');
-        $this->load->view('eadmin/{{ className }}/tambah');
+        $this->load->view('admin/{{ className }}/tambah');
         $this->load->view('templateadmin/footer');
     }
 
@@ -91,7 +91,7 @@ class {{ className_controller }} extends CI_Controller {
         {{ simpan_control }}
 
         if($simpan){
-            redirect('eadmin/{{ link }}');
+            redirect('admin/{{ link }}');
         }
     }
 
@@ -99,7 +99,7 @@ class {{ className_controller }} extends CI_Controller {
         {{ update_control }}
 
         if($simpan){
-            redirect('eadmin/{{ link }}');
+            redirect('admin/{{ link }}');
         }
     }
     

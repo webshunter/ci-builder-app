@@ -2,21 +2,12 @@
 
 require_once 'gugus_artisan/openC/setting.php';
 
-$location_created = "application/controllers/eadmin/";
-$location_view = "application/views/eadmin/";
-
-if(!file_exists($location_view)){
-    mkdir($location_view, 0777, true);
-}
-
-if(!file_exists($location_created)){
-    mkdir($location_created, 0777, true);
-}
-
-// make foleder template
+$location_created = "application/controllers/admin/";
+$location_view = "application/views/admin/";
+// make foleder template 
 if(!isset($argument[3]) || $argument[3] == "--default"){
-
-    mkdir($location_created.$argument[2], 0777, true);
+    
+    mkdir($location_created.$argument[2]);
     print "create ".$argument[2]." \n";
     mkdir($location_created.$argument[2]."/controllers");
         $myfile = "templating/default/controller.template";
@@ -40,7 +31,7 @@ if(!isset($argument[3]) || $argument[3] == "--default"){
         $create = fopen($filecreate, "w");
         fwrite($create, $data);
         fclose($create);
-
+        
         // Datatable_gugus models
         $myfile = "templating/datatable/Datatable_gugus.template";
         $mytemplate = fopen($myfile, "r");
@@ -50,13 +41,13 @@ if(!isset($argument[3]) || $argument[3] == "--default"){
         $create = fopen($filecreate, "w");
         fwrite($create, $data);
         fclose($create);
-
+        
         print "create ".$argument[2]." Models \n";
-
+    
         // view area --------------------------------------------------------------------------//
-
+        
         mkdir($location_created.$argument[2]."/views");
-
+        
         // Datatable_gugus models
         $myfile = "templating/default/view.template";
         $mytemplate = fopen($myfile, "r");
@@ -66,29 +57,10 @@ if(!isset($argument[3]) || $argument[3] == "--default"){
         $create = fopen($filecreate, "w");
         fwrite($create, $data);
         fclose($create);
-
+    
     print "create ".$argument[2]." views ";
 }
 elseif( $argument[3] == "--crud"){
-
-    function deleteDir($dirPath) {
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException("$dirPath must be a directory");
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if (is_dir($file)) {
-                deleteDir($file);
-            } else {
-                unlink($file);
-            }
-        }
-        rmdir($dirPath);
-    }
-
 
     if (file_exists($location_created.$argument[2])) {
         deleteDir($location_created.$argument[2]);
@@ -96,11 +68,11 @@ elseif( $argument[3] == "--crud"){
     if (file_exists($location_view.$argument[2])) {
         deleteDir($location_view.$argument[2]);
     }
-
-    // make foleder template
+    
+    // make foleder template 
 
         $total_row = $db->total_row_table($argument[4]) - 1;
-
+        
         $table_head = getrowname($argument[4]);
         $data_show = $db->dapatkan_nama_column($argument[4], [0 => "no"], [], 'show');
         $data_order = $db->dapatkan_nama_column($argument[4], [0 => "no"], [], 'order');
@@ -114,9 +86,8 @@ elseif( $argument[3] == "--crud"){
         $data = str_replace("{{ className_controller }}", ucfirst($argument[2]), $data);
         $data = str_replace("{{ link }}", str_replace('_', '_', $argument[2]), $data);
         $data = str_replace("{{ className }}", $argument[2], $data);
-
-        $data = str_replace("{{ total_row }}", countRow($argument[4]), $data);
         
+        $data = str_replace("{{ total_row }}", $total_row, $data);
         $data = str_replace("{{ simpan_control }}", create_action($argument[4]), $data);
         $data = str_replace("{{ update_control }}", update_action($argument[4], $db->get_primary_key($argument[4])), $data);
 
@@ -124,7 +95,7 @@ elseif( $argument[3] == "--crud"){
         $data = str_replace("{{ table_head }}", str_replace("_"," ",$table_head), $data);
         $data = str_replace("{{custome}}", tablecustome($argument[4]), $data);
         $data = str_replace("{{newapi}}", newapi($argument[4]), $data);
-        $data = str_replace("{{ search }}", searchrow($argument[4]), $data);
+        $data = str_replace("{{ search }}", $data_show, $data);
         $data = str_replace("{{ order }}", $data_order, $data);
         $data = str_replace("{{ keys }}", $db->get_primary_key($argument[4]), $data);
         if(isset($argument[4])){
@@ -140,11 +111,11 @@ elseif( $argument[3] == "--crud"){
         fwrite($create, $data);
         fclose($create);
         print "create ".$argument[2]." controllers \n";
-
+        
         // view area --------------------------------------------------------------------------//
-
+        
         mkdir($location_view.$argument[2]."", 0777, true);
-
+        
         // Datatable_gugus view
         $myfile = "templating/datatable/view.template";
         $mytemplate = fopen($myfile, "r");
@@ -154,7 +125,7 @@ elseif( $argument[3] == "--crud"){
         $data = str_replace("{{ link }}", str_replace('_', '_', $argument[2]), $data);
         fclose($mytemplate);
         $filecreate = $location_view.$argument[2]."/view.php";
-        $create = fopen($filecreate, "w");
+        $create = fopen($filecreate, "w"); 
         fwrite($create, $data);
         fclose($create);
 

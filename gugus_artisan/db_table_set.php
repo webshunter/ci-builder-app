@@ -2,7 +2,6 @@
 
 require_once 'database.php';
 
-
 class db_table_set extends Database{
 
     function createTbleNewUpdateDel()
@@ -23,6 +22,7 @@ class db_table_set extends Database{
         foreach($ax as $xz => $ay){
             $cek_d = $this->cekTable($ay["table"], $ay["data"]);
         }
+
     }
 
     function insertData()
@@ -61,7 +61,6 @@ class db_table_set extends Database{
         foreach ($ax as $nilaiax) {
             $dataTable[] = $nilaiax["table"];
         }
-
 
         $dataArr = [];
 
