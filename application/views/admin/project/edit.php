@@ -28,7 +28,7 @@
     
                 <?=
                     form::input([
-                        "title" => "nama",
+                        "title" => "Nama",
                         "type" => "text",
                         "fc" => "nama",
                         "placeholder" => "tambahkan nama",
@@ -38,7 +38,7 @@
             
                 <?=
                     form::input([
-                        "title" => "tanggal",
+                        "title" => "Tanggal",
                         "type" => "text",
                         "fc" => "tanggal",
                         "placeholder" => "tambahkan tanggal",
@@ -48,7 +48,7 @@
             
                 <?=
                     form::input([
-                        "title" => "keterangan",
+                        "title" => "Keterangan",
                         "type" => "text",
                         "fc" => "keterangan",
                         "placeholder" => "tambahkan keterangan",
@@ -58,7 +58,7 @@
             
                 <?=
                     form::input([
-                        "title" => "status",
+                        "title" => "Status",
                         "type" => "text",
                         "fc" => "status",
                         "placeholder" => "tambahkan status",

@@ -22,12 +22,12 @@ $arr[] = [
     ], 
     'name' => [ 
         'no', 
-        'nama', 
-        'tanggal', 
-        'keterangan', 
-        'status', 
-        'created_at', 
-        'updated_at', 
+        'Nama', 
+        'Tanggal', 
+        'Keterangan', 
+        'Status', 
+        'Dibuat', 
+        'Update', 
     ], 
     "title" => [
           "view" => "Project",
